@@ -3,6 +3,7 @@ package edu.utn.utnphones.service;
 import edu.utn.utnphones.domain.Client;
 import edu.utn.utnphones.dto.ClientPhoneLineRequestDto;
 import edu.utn.utnphones.exceptions.ClientAlreadyExistsException;
+import edu.utn.utnphones.projection.ClientCallsParcial;
 import edu.utn.utnphones.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,10 @@ public class ClientService{
 
     public void addClient(ClientPhoneLineRequestDto clientPhoneLineRequestDto) throws ClientAlreadyExistsException {
         clientRepository.addClient(clientPhoneLineRequestDto.getCity(), clientPhoneLineRequestDto.getFirstname(), clientPhoneLineRequestDto.getLastname(), clientPhoneLineRequestDto.getDni(), clientPhoneLineRequestDto.getPassword(), clientPhoneLineRequestDto.getTypeLine() );
+    }
+
+    public List<ClientCallsParcial> getClientCallsParcial(String clientDni, Double price){
+        return clientRepository.getClientCallsParcial(clientDni, price);
     }
 
 }
