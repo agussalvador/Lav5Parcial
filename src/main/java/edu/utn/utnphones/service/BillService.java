@@ -1,26 +1,25 @@
 package edu.utn.utnphones.service;
 
-import edu.utn.utnphones.domain.Bill;
-import edu.utn.utnphones.repository.BillRepository;
+import edu.utn.utnphones.repository.BillDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class BillService {
-    private final BillRepository billRepository;
+
+    private final BillDao billDao;
+    private final UserService userService;
 
     @Autowired
-    public BillService(BillRepository billRepository) {
-        this.billRepository = billRepository;
+    public BillService(BillDao billDao, UserService userService) {
+        this.billDao = billDao;
+        this.userService = userService;
     }
 
-    public List<Bill> getBills() {
-        return billRepository.findAll();
-    }
 
-    public Bill getBillById(Integer billId) {
-        return billRepository.findById(billId).get();
-    }
+
+
+
+
+
 }

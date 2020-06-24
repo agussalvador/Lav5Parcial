@@ -1,14 +1,14 @@
 package edu.utn.utnphones.domain;
 
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,30 +20,33 @@ public class Bill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_bill")
-    private Integer billId;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
-    @JoinColumn(name = "id_telephone_line")
-    private PhoneLine phoneLine;
+    private Long billId;
 
     @Column(name = "count_calls")
     private Integer countCalls;
 
     @Column(name = "cost_price")
-    private double costPrice;
+    private Double costPrice;
 
-    @Column(name = "price")
-    private double price;
+    @Column(name = "total_price")
+    private Double totalPrice;
 
     @Column(name = "date_bill")
-    private Date date;
+    private LocalDateTime dateBill;
 
     @Column(name = "expirate_date")
-    private Date expirateDate;
+    private LocalDateTime expirationDate;
 
-    @OneToMany(mappedBy = "bill")
-    private List<Call> calls;
+    @Column(name = "is_pay")
+    private Boolean isPay;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
+    @JoinColumn(name = "id_telephone_line")
+    @Fetch(FetchMode.JOIN)
+    private PhoneLine phoneLine;
+
+
 
 
 }

@@ -7,13 +7,9 @@ import java.util.List;
 
 public interface ClientCallsParcial {
 
-    String getTelepohoneNumber();
+    String getPhone_number();
 
-    String getFirstname();
-
-    String getDni();
-
-    Double getPrice();
+    Double getCall_price();
 
 
 }

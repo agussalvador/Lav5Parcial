@@ -4,9 +4,11 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,48 +16,43 @@ import java.util.Date;
 @Entity
 @Table(name = "calls")
 public class Call {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue()
     @Column(name = "id_call")
-    private Integer callId;
+    private Long callId;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
     @JoinColumn(name = "id_telephone_origin")
+    @Fetch(FetchMode.JOIN)
     private PhoneLine phoneLineOrigin;
 
-
     @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
     @JoinColumn(name = "id_telephone_destination")
+    @Fetch(FetchMode.JOIN)
     private PhoneLine phoneLineDestination;
 
-
     @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
     @JoinColumn(name = "id_city_origin")
+    @Fetch(FetchMode.JOIN)
     private City cityOrigin;
 
-
     @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
     @JoinColumn(name = "id_city_destination")
+    @Fetch(FetchMode.JOIN)
     private City cityDestination;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
-    @JoinColumn(name = "id_tariff")
-    private Tariff tariff;
+    @Column(name = "duration")
+    private Integer duration; // en segundos
+
+    @Column(name = "call_date")
+    private LocalDateTime callDate;
 
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
     @JoinColumn(name = "id_bill")
+    @Fetch(FetchMode.JOIN)
     private Bill bill;
 
-    @Column(name = "duration")
-    private Integer duration;
-
-    @Column(name = "date_call")
-    private Date date;
 }

@@ -1,16 +1,15 @@
 package edu.utn.utnphones.domain;
 
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.util.List;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Entity
 @Table(name = "tariffs")
@@ -19,25 +18,21 @@ public class Tariff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_tariff")
-    private Integer tariffId;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
-    @JoinColumn(name = "id_city_origin")
-    private City cityOrigin;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
-    @JoinColumn(name = "id_city_destination")
-    private City cityDestination;
+    private Long tariffId;
 
     @Column(name = "cost_price")
-    private double costPrice;
+    private Double costPrice;
 
-    @Column(name = "price")
-    private double price;
+    private Double price;
 
-    @OneToMany(mappedBy = "tariff")
-    private List<Call> calls;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_city_origin")
+    @Fetch(FetchMode.JOIN)
+    City cityOrigin;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_city_destination")
+    @Fetch(FetchMode.JOIN)
+    City cityDestination;
 
 }

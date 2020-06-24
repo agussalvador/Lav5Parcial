@@ -1,9 +1,7 @@
 package edu.utn.utnphones.service;
 
-
-import edu.utn.utnphones.domain.Bill;
 import edu.utn.utnphones.domain.Tariff;
-import edu.utn.utnphones.repository.TariffRepository;
+import edu.utn.utnphones.repository.TariffDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,19 +10,32 @@ import java.util.List;
 @Service
 public class TariffService {
 
-    private final TariffRepository tariffRepository;
+    private static TariffDao dao;
 
     @Autowired
-    public TariffService(TariffRepository tariffRepository) {
-        this.tariffRepository = tariffRepository;
+    public TariffService(TariffDao dao) {
+        this.dao = dao;
     }
 
-    public List<Tariff> getTariffs() {
-        return tariffRepository.findAll();
+    /*CREATE*/
+    public void createTariff(Tariff tariff) {
+        dao.create(tariff.getCityOrigin().getCityId(), tariff.getCityDestination().getCityId(),
+                tariff.getCostPrice(),tariff.getPrice());
     }
 
-    public Tariff getTariffById(Integer tariffId) {
-        return tariffRepository.findById(tariffId).get();
+    /*READ*/
+    public List<Tariff> readTariff(){
+        return dao.findAll();
     }
 
+    /*UPDATE*/
+    public void updateTariff(Tariff tariff) {
+        dao.update(tariff.getCityOrigin().getCityId(), tariff.getCityDestination().getCityId(),
+                tariff.getCostPrice(),tariff.getPrice());
+    }
+
+    /*DELETE*/
+    public void deleteTariff(Integer idCityOrigin, Integer idCityDestination){
+        dao.delete(idCityOrigin,idCityDestination);
+    }
 }

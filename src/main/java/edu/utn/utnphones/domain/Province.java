@@ -5,25 +5,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+import java.io.Serializable;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
 @Table(name = "provinces")
-public class Province {
+public class Province implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_province")
-    private Integer provinceId;
+    private Long provinceId;
 
     @Column(name = "province_name")
     private String name;
-
-    @OneToMany(mappedBy = "province")
-    private List<City> cities;
 
 
 }

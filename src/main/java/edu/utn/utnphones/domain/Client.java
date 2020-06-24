@@ -20,10 +20,10 @@ public class Client extends Person {
 
     @Column(name = "enabled")
     private Boolean enabled;
-
+/*
     @OneToMany(mappedBy = "client")
     private List<PhoneLine> phonelines;
-
+*/
 
     //private List<Bill> bills;
 

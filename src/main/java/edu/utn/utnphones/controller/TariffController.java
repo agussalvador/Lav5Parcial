@@ -22,7 +22,7 @@ public class TariffController {
     public TariffController(final TariffService tariffService) {
         this.tariffService = tariffService;
     }
-
+/*
     @GetMapping("/")
     public List<Tariff> getTariffs() {
         return tariffService.getTariffs();
@@ -31,6 +31,6 @@ public class TariffController {
     @GetMapping("/{tariffId}")
     public Tariff getTariffById(@PathVariable Integer tariffId) {
         return tariffService.getTariffById(tariffId);
-    }
+    }*/
 
 }
